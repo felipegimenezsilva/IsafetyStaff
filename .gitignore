@@ -1,0 +1,16 @@
+# GRAFANA
+grafana/data/*
+
+# NGINX
+# ...
+
+# NUXT
+# ...
+
+# POSTGRES
+postgres/data
+
+# STRAPI
+strapi/.env
+strapi/.tmp
+strapi/public/uploads/*

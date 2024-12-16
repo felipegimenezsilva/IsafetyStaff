@@ -1,0 +1,94 @@
+version: "1.0"
+services:
+    
+    postgres:
+        container_name: isafety-postgres
+        build: ./postgres
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: ${POSTGRES_USERNAME}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        volumes: 
+            - ./postgres/data:/var/lib/postgresql/data
+        networks:
+            - isafety-dataset-network
+
+    strapi:
+        container_name: isafety-strapi
+        build: 
+            context: ./strapi
+            args:
+                URL: ${PROTOCOL}://${HOST}/dev
+        image: strapi
+        restart: always
+        environment:
+            DATABASE_CLIENT: ${STRAPI_DATABASE_CLIENT}
+            DATABASE_HOST: postgres
+            DATABASE_PORT: 5432
+            DATABASE_NAME: ${STRAPI_DATABASE_NAME}
+            DATABASE_USERNAME: ${POSTGRES_USERNAME}
+            DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+            APP_KEYS: ${STRAPI_APP_KEYS}
+            NODE_ENV: ${STRAPI_NODE_ENV}
+            API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT}
+            ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET}
+            TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT}
+            JWT_SECRET: ${STRAPI_JWT_SECRET}
+        volumes:
+            - ./strapi/config:/api/config
+            - ./strapi/src:/api/src
+            - ./strapi/public/uploads:/api/public/uploads
+        depends_on:
+            - postgres
+        networks:
+            - isafety-geral-network
+            - isafety-dataset-network
+
+    grafana:
+        container_name: isafety-grafana
+        build:
+            context: ./grafana
+            args:
+                DOMAIN: ${HOST}
+        image: grafana
+        user: '0'
+        restart: always
+        volumes:
+            - ./grafana/data:/var/lib/grafana
+        networks:
+            - isafety-geral-network
+
+    nuxt:
+        container_name: isafety-nuxt
+        build:
+            context: ./nuxt
+            args:
+                API_URL : http://strapi:5000/api
+                TOKEN_API : ${NUXT_TOKEN_API}
+        image: nuxt
+        restart: always
+        networks:
+            - isafety-geral-network
+
+    nginx:
+        container_name: staff-nginx
+        build: ./nginx
+        image: nginx
+        restart: always
+        volumes:
+           - ./nginx/certs:/etc/nginx/certs
+        networks:
+            - isafety-geral-network
+        ports:
+            - '2222:8080'
+        depends_on:
+            - strapi
+            - grafana
+            - nuxt
+
+networks:
+    isafety-geral-network:
+        driver: bridge
+    isafety-dataset-network:
+        driver: bridge
