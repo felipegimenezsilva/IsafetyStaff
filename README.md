@@ -119,6 +119,10 @@ To use a pre-created dashboard for Grafana, you can import the grafana/dashboard
 
 The imported dashboard was configured to support the actual structure of strapi, with graphQL queries and general information (graphs).
 
+### 1.4 - NGINX HTTPS Self Signed
+
+In the folder nginx/certs has the certificates used for HTTPS Self Signed. Do not use the leaked certificate in production environment. Ideally, in production must avoid self signed solutions.
+
 # 2 - Platform iSafetyStaff
 
 The section below briefly describes the main concepts of the iSafetyStaff platform.
