@@ -4,7 +4,7 @@ The following steps describe how to install and configure each microservice of t
 
 ## 1.1 - Create New Strapi Secrets
 
-Strap secrets generate tokens for authorization/authentication. It is important to change the tokens to avoid using leaked secrets.
+Strap secrets generate tokens for authorization/authentication. It is important to change the tokens inserted in the env file to avoid using leaked secrets. The current .env is an proposital example (only to test), do not use in production environment.
 
 ```
 # building the system for the first time
