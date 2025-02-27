@@ -1,6 +1,7 @@
 <style scoped>
   .custom-color{
-    background-color: #ffffff1e;
+    /*background-color: #ffffff1e;*/
+    background-color: #959595;
   }
   .title {
     text-align: center;
@@ -11,10 +12,12 @@
     border-radius: 10px;
     width: 90%;
     max-width: 1000px;
+    /*
     box-shadow: 3px 3px 9px 0px;
     border-color: rgba(255, 255, 255, 0.137);
     border-width: 1px;
     border-style: solid;
+    */
   }
   .bottom{
     color: aliceblue;
@@ -65,7 +68,7 @@
 
           <!-- showing options of classes available -->
           <div v-if="state=='answerQuestion'" class="col-12" style="border-width: 2px 0px 2px 0px; border-style: solid; border-color: #ffffff12; padding-top: 10px; padding-bottom: 10px;">
-            <div style="color: rgba(187, 187, 187, 0.466); text-align: center; padding: 10px; margin-bottom: 10px;">
+            <div style="color: rgba(255, 255, 255, 1); text-align: center; padding: 10px; margin-bottom: 10px;">
               Choose one reaction to indicate the satisfaction grade.
             </div>
             <div class="row d-flex justify-content-around" style="margin-bottom: 10px;">

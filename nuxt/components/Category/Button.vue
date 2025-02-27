@@ -1,7 +1,8 @@
 <style>
     .category{
         padding : 20px;
-        background-color: #ffffff12;
+        /*background-color: #ffffff12;*/
+        background-color: #0000008f;
         text-align:center;
         border-radius: 5px;
         min-width: 100%;
